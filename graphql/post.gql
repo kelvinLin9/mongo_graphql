@@ -1,0 +1,45 @@
+type Media {
+  title: String!
+  url: String
+}
+
+type Image {
+  _9_16: [String]
+  _16_9: [String]
+  _1_1: [String]
+}
+
+type Host {
+  name: String!
+  url: String
+}
+
+type Content {
+  media: Media
+  image: Image
+  host: Host
+  channel: String
+}
+
+type Post {
+  kind: Kind!
+  tags: [String]
+  likes: Int
+  content: Content
+  createdAt: String
+  updatedAt: String
+}
+
+enum Kind {
+  stream
+  podcast
+  short
+  photos
+  livetv
+  liveview
+}
+
+type Query {
+  posts: [Post]
+  postById(id: ID!): Post
+}

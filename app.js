@@ -1,19 +1,20 @@
 const express = require('express');
-
 const { graphqlHTTP } = require('express-graphql');
 const { schema, root } = require('./graphql/schema');
+require('dotenv').config();
 
 const mongoose = require('mongoose');
 
 var app = express();
 
-mongoose.connect('mongodb+srv://kelvin80121:6pp17nWbIYfBlKTy@gt.ptvgaic.mongodb.net/?retryWrites=true&w=majority&appName=GT')
-  .then(res=> console.log("連線資料成功"));
+mongoose.connect(process.env.DB_CONNECTION_STRING)
+  .then(res => console.log("連線資料成功"))
+  .catch(err => console.log(err))
 
   app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,
-    graphql: true,
+    graphiql: true, // GraphQL IDE
   }));
 
 
